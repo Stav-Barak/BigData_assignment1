@@ -1,0 +1,39 @@
+DROP FUNCTION MaximalDistance;
+DROP FUNCTION SimCalculation;
+
+
+GO
+CREATE FUNCTION MaximalDistance()
+RETURNS REAL
+AS
+BEGIN
+DECLARE @maxDist REAL;
+SELECT @maxDist = MAX(ABS(m1.PROD_YEAR - m2.PROD_YEAR))
+FROM MediaItems m1, MediaItems m2
+WHERE m1.MID <> m2.MID;
+RETURN @maxDist;
+END; 
+GO
+
+CREATE FUNCTION SimCalculation(@MID1 NUMERIC(11,0), @MID2 NUMERIC(11,0), @maxDist SMALLINT)
+RETURNS REAL
+AS
+BEGIN
+  DECLARE @similarity REAL;
+  DECLARE @dist NUMERIC(11,0);
+  
+  SELECT @maxDist = dbo.MaximalDistance();
+  
+  SELECT @dist = ABS(m1.PROD_YEAR - m2.PROD_YEAR)
+  FROM MediaItems m1, MediaItems m2
+  WHERE m1.MID = @mid1 AND m2.MID = @mid2;
+  
+  SET @similarity = 1 - (@dist / @maxDist);
+  RETURN @similarity;
+END;
+
+GO
+
+
+
+                                                                                                                  
