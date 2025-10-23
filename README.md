@@ -1,4 +1,4 @@
-# BigData_assignment1
+# JDBC_Similarity
 
 This repository contains the solution for Assignment 1 in the Big Data course.  
 The project includes SQL functions for similarity calculation and a Java class that interacts with the database using JDBC.
